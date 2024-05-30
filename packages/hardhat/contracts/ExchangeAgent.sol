@@ -5,7 +5,7 @@ pragma solidity ^0.8.9;
 // import "hardhat/console.sol";
 import "./interfaces/IOracle.sol";
 
-contract RetailInvestorAgent {
+contract ExchangeAgent {
 
     string public prompt;
 
@@ -75,7 +75,7 @@ contract RetailInvestorAgent {
         emit OracleAddressUpdated(newOracleAddress);
     }
 
-    function TokenInvestBehaviour(
+    function TokenListingBehaviour(
       string memory projectName,
       string memory projectDescription,
       string memory totalSupply,
@@ -93,12 +93,13 @@ contract RetailInvestorAgent {
       string memory utility,
       string memory ecosystemSize,
       string memory partnerships,
+      string memory communitySentiments,
       string memory regulations,
-      string memory roadmap,
-      string memory newOutreach
+      string memory roadmap
     ) public returns (uint i) {
       string memory query = string.concat(
-        "You are a helpful assistant that helps with the community joining and investment decisions in the crypto token. \n",
+        "You are a helpful assistant that helps with the decision of the crypto exchange",
+        "\n",
         "I will give you the following information - \n",
         "Name of the ICO project: ",
         projectName,
@@ -151,35 +152,29 @@ contract RetailInvestorAgent {
         "Partnerships: ",
         partnerships,
         "\n",
+        "Community Sentiments: ",
+        communitySentiments,
+        "\n",
         "Regulation: ",
         regulations,
         "\n",
         "Roadmap: ",
         roadmap,
-        "\n"
-        "Total new users outreach: ",
-        newOutreach,
         "\n",
-        "You must follow the following criteria:",
+        "You must follow the following criteria: ",
         "\n",
-        "You are among the new users being marketed choose whether you will join the community",
+        "You need to take a decision on the behalf of the exchange on whether you will be listing this token or not.",
         "\n",
-        "You are among the new users being marketed choose whether you will purchase the token and how many tokens",
-        "\n",
-        "You should tell me how many of the new users marketed will join the community",
-        "\n",
-        "You should tell me how many of the new users marketed will purchase the token and how many of the tokens",
-        "\n",
-        "You should tell me how the final community size, token holders size, token supply and token price will look like",
+        "You need to take a decision on behalf of the exchange on how many of the tokens you will be listing and for how much price",
         "\n",
         "Tell me in JSON format as follows:",
         "\n",
-        "{ \n",
-        '"tokenPrice: "...", \n',
-        '"Total holders": "...", \n',
-        '"tokenSupply": "..." \n',
-        '"Community size": "..."',
-        '}"' 
+        '{ \n',
+        '"Total tokens listed": "...", \n',
+        '"Percentage of total circulating supply listed on exchange": "...", \n',
+        '"Will you list this token": "yes or no", \n',
+        '"How much will you take to list these tokens": "..." \n',
+        '}'
       );
 
       return runAgent(query, 3);
