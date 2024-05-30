@@ -118,6 +118,11 @@ const config: HardhatUserConfig = {
       url: "https://sepolia.publicgoods.network",
       accounts: [deployerPrivateKey],
     },
+    galadriel: {
+      chainId: 696969,
+      url: "https://devnet.galadriel.com/",
+      accounts: [deployerPrivateKey],
+    },
   },
   // configuration for harhdat-verify plugin
   etherscan: {
