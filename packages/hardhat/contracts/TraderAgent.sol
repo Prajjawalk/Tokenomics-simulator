@@ -49,7 +49,7 @@ contract TraderAgent {
 			stop: "", // null
 			temperature: 10, // Example temperature (scaled up, 10 means 1.0), > 20 means null
 			topP: 101, // Percentage 0-100, > 100 means null
-			tools: '[{"type":"function","function":{"name":"web_search","description":"Search the internet","parameters":{"type":"object","properties":{"query":{"type":"string","description":"Search query"}},"required":["query"]}}},{"type":"function","function":{"name":"image_generation","description":"Generates an image using Dalle-2","parameters":{"type":"object","properties":{"prompt":{"type":"string","description":"Dalle-2 prompt to generate an image"}},"required":["prompt"]}}}]',
+			tools: '[{"type":"function","function":{"name":"image_generation","description":"Generates an image using Dalle-2","parameters":{"type":"object","properties":{"prompt":{"type":"string","description":"Dalle-2 prompt to generate an image"}},"required":["prompt"]}}}]',
 			toolChoice: "auto", // "none" or "auto"
 			user: "" // null
 		});
@@ -148,15 +148,15 @@ contract TraderAgent {
 			"Liquidity Pool value: ",
 			liquidityPool,
 			"\n",
+      "\n",
 			"You must follow the following criteria: \n",
 			"You should choose the amount of tokens you want to buy according to the reasonable price you think an average crypto trader will buy for \n",
 			"You should tell me how many traders will buy this token at a similar price from the exchange as yours update the resulting price and total supply in the exchange \n",
-			"You also generate an image for this token \n",
 			"There should be no information about the operation, only the final JSON response. \n",
-			"Tell me in JSON format as follows: \n",
+			"Tell me in JSON format without the code block notation as follows: \n",
 			"{ \n",
-			'"tokenPrice: "...", \n',
-			'"Total holders": "...", \n',
+			'"tokenPrice": "...", \n',
+			'"totalHolders": "...", \n',
 			'"tokenSupply": "..." \n',
 			'}"'
 		);

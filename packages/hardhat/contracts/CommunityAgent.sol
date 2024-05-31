@@ -168,11 +168,11 @@ contract CommunityAgent {
         "\n",
         "You dont need to label any message as created by any character, just make it look like a discord chat",
         "\n",
-        "Tell me in JSON format as follows:"
+        "Tell me in JSON format without the code block notation as follows:"
         "\n",
         '{ \n',
-        '"Messages": [ \n',
-        '"message1", "message2" \n',
+        '"communityMessages": [ \n',
+        '"...", "..." \n',
         '] \n',
         '}'
       );
@@ -262,6 +262,7 @@ contract CommunityAgent {
         "Roadmap: ",
         roadmap,
         "\n",
+        "\n",
         "You must follow the following criteria: \n",
         "You need to impersonate 10 community members and you need to choose their characteristic traits (positive, negative, fudders, bullish, bearish, etc.) and create one message accordingly for each community member.",
         "\n",
@@ -276,7 +277,7 @@ contract CommunityAgent {
         "Tell me in JSON format as follows:",
         "\n",
         '{ \n',
-        '"Messages": [ \n',
+        '"messages": [ \n',
         '"message1", "message2" \n',
         '] \n',
         '}'

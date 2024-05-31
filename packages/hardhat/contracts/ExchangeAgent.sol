@@ -161,19 +161,21 @@ contract ExchangeAgent {
         "Roadmap: ",
         roadmap,
         "\n",
+        "\n"
         "You must follow the following criteria: ",
         "\n",
         "You need to take a decision on the behalf of the exchange on whether you will be listing this token or not.",
         "\n",
         "You need to take a decision on behalf of the exchange on how many of the tokens you will be listing and for how much price",
         "\n",
-        "Tell me in JSON format as follows:",
+        "There should be no information about the operation, only the final JSON response. \n",
+        "Tell me in JSON format without the code block notation as follows:",
         "\n",
         '{ \n',
-        '"Total tokens listed": "...", \n',
-        '"Percentage of total circulating supply listed on exchange": "...", \n',
-        '"Will you list this token": "yes or no", \n',
-        '"How much will you take to list these tokens": "..." \n',
+        '"totalTokensListed": "...", \n',
+        '"percentageOfTotalCirculatingSupplyListed": "...", \n',
+        '"willYouListThisToken": "yes or no", \n',
+        '"listingFees": "..." \n',
         '}'
       );
 
