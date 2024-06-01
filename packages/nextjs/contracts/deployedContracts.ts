@@ -4,6 +4,1951 @@
  */
 import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 
-const deployedContracts = {} as const;
+const deployedContracts = {
+  696969: {
+    CommunityAgent: {
+      address: "0x4B073614475499d1bAB643a9cca38c7C6B51d7Ef",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "initialOracleAddress",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "systemPrompt",
+              type: "string",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "runId",
+              type: "uint256",
+            },
+          ],
+          name: "AgentRunCreated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOracleAddress",
+              type: "address",
+            },
+          ],
+          name: "OracleAddressUpdated",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "agentRuns",
+          outputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "responsesCount",
+              type: "uint256",
+            },
+            {
+              internalType: "uint8",
+              name: "max_iterations",
+              type: "uint8",
+            },
+            {
+              internalType: "bool",
+              name: "is_finished",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "agentId",
+              type: "uint256",
+            },
+          ],
+          name: "getMessageHistoryContents",
+          outputs: [
+            {
+              internalType: "string[]",
+              name: "",
+              type: "string[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "agentId",
+              type: "uint256",
+            },
+          ],
+          name: "getMessageHistoryRoles",
+          outputs: [
+            {
+              internalType: "string[]",
+              name: "",
+              type: "string[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "runId",
+              type: "uint256",
+            },
+          ],
+          name: "isRunFinished",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "runId",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "response",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "errorMessage",
+              type: "string",
+            },
+          ],
+          name: "onOracleFunctionResponse",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "runId",
+              type: "uint256",
+            },
+            {
+              components: [
+                {
+                  internalType: "string",
+                  name: "id",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "content",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "functionName",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "functionArguments",
+                  type: "string",
+                },
+                {
+                  internalType: "uint64",
+                  name: "created",
+                  type: "uint64",
+                },
+                {
+                  internalType: "string",
+                  name: "model",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "systemFingerprint",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "object",
+                  type: "string",
+                },
+                {
+                  internalType: "uint32",
+                  name: "completionTokens",
+                  type: "uint32",
+                },
+                {
+                  internalType: "uint32",
+                  name: "promptTokens",
+                  type: "uint32",
+                },
+                {
+                  internalType: "uint32",
+                  name: "totalTokens",
+                  type: "uint32",
+                },
+              ],
+              internalType: "struct IOracle.OpenAiResponse",
+              name: "response",
+              type: "tuple",
+            },
+            {
+              internalType: "string",
+              name: "errorMessage",
+              type: "string",
+            },
+          ],
+          name: "onOracleOpenAiLlmResponse",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "oracleAddress",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "prompt",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "projectName",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "projectDescription",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "totalSupply",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "tokenPrice",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "consensus",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "circulatingSupply",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "communitySize",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "marketCap",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "tradingVolume",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "priceVolatility",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "historicalPriceTrends",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "holderDistribution",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "burnRate",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "inflation",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "utility",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "ecosystemSize",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "partnerships",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "regulations",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "roadmap",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "developments",
+              type: "string",
+            },
+          ],
+          name: "reactionToNewDevelopment",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "i",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "query",
+              type: "string",
+            },
+            {
+              internalType: "uint8",
+              name: "max_iterations",
+              type: "uint8",
+            },
+          ],
+          name: "runAgent",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "i",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "projectName",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "projectDescription",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "totalSupply",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "tokenPrice",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "consensus",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "circulatingSupply",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "communitySize",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "marketCap",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "tradingVolume",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "priceVolatility",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "historicalPriceTrends",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "holderDistribution",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "burnRate",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "inflation",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "utility",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "ecosystemSize",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "partnerships",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "regulations",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "roadmap",
+              type: "string",
+            },
+          ],
+          name: "sentimentsForNewListing",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "i",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newOracleAddress",
+              type: "address",
+            },
+          ],
+          name: "setOracleAddress",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+    ExchangeAgent: {
+      address: "0xC1c7fa2a062DdfE56224F0e6a3F5dC565db2Ab1C",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "initialOracleAddress",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "systemPrompt",
+              type: "string",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "runId",
+              type: "uint256",
+            },
+          ],
+          name: "AgentRunCreated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOracleAddress",
+              type: "address",
+            },
+          ],
+          name: "OracleAddressUpdated",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "projectName",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "projectDescription",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "totalSupply",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "tokenPrice",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "consensus",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "circulatingSupply",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "communitySize",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "marketCap",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "tradingVolume",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "priceVolatility",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "historicalPriceTrends",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "holderDistribution",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "burnRate",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "inflation",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "utility",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "ecosystemSize",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "partnerships",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "communitySentiments",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "regulations",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "roadmap",
+              type: "string",
+            },
+          ],
+          name: "TokenListingBehaviour",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "i",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "agentRuns",
+          outputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "responsesCount",
+              type: "uint256",
+            },
+            {
+              internalType: "uint8",
+              name: "max_iterations",
+              type: "uint8",
+            },
+            {
+              internalType: "bool",
+              name: "is_finished",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "agentId",
+              type: "uint256",
+            },
+          ],
+          name: "getMessageHistoryContents",
+          outputs: [
+            {
+              internalType: "string[]",
+              name: "",
+              type: "string[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "agentId",
+              type: "uint256",
+            },
+          ],
+          name: "getMessageHistoryRoles",
+          outputs: [
+            {
+              internalType: "string[]",
+              name: "",
+              type: "string[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "runId",
+              type: "uint256",
+            },
+          ],
+          name: "isRunFinished",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "runId",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "response",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "errorMessage",
+              type: "string",
+            },
+          ],
+          name: "onOracleFunctionResponse",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "runId",
+              type: "uint256",
+            },
+            {
+              components: [
+                {
+                  internalType: "string",
+                  name: "id",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "content",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "functionName",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "functionArguments",
+                  type: "string",
+                },
+                {
+                  internalType: "uint64",
+                  name: "created",
+                  type: "uint64",
+                },
+                {
+                  internalType: "string",
+                  name: "model",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "systemFingerprint",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "object",
+                  type: "string",
+                },
+                {
+                  internalType: "uint32",
+                  name: "completionTokens",
+                  type: "uint32",
+                },
+                {
+                  internalType: "uint32",
+                  name: "promptTokens",
+                  type: "uint32",
+                },
+                {
+                  internalType: "uint32",
+                  name: "totalTokens",
+                  type: "uint32",
+                },
+              ],
+              internalType: "struct IOracle.OpenAiResponse",
+              name: "response",
+              type: "tuple",
+            },
+            {
+              internalType: "string",
+              name: "errorMessage",
+              type: "string",
+            },
+          ],
+          name: "onOracleOpenAiLlmResponse",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "oracleAddress",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "prompt",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "query",
+              type: "string",
+            },
+            {
+              internalType: "uint8",
+              name: "max_iterations",
+              type: "uint8",
+            },
+          ],
+          name: "runAgent",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "i",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newOracleAddress",
+              type: "address",
+            },
+          ],
+          name: "setOracleAddress",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+    RetailInvestorAgent: {
+      address: "0x90c76698ef9B9E79dB17B2c9DEd34652cb51fe98",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "initialOracleAddress",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "systemPrompt",
+              type: "string",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "runId",
+              type: "uint256",
+            },
+          ],
+          name: "AgentRunCreated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOracleAddress",
+              type: "address",
+            },
+          ],
+          name: "OracleAddressUpdated",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "projectName",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "projectDescription",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "totalSupply",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "tokenPrice",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "consensus",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "circulatingSupply",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "communitySize",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "marketCap",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "tradingVolume",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "priceVolatility",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "historicalPriceTrends",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "holderDistribution",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "burnRate",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "inflation",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "utility",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "ecosystemSize",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "partnerships",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "regulations",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "roadmap",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "newOutreach",
+              type: "string",
+            },
+          ],
+          name: "TokenInvestBehaviour",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "i",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "agentRuns",
+          outputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "responsesCount",
+              type: "uint256",
+            },
+            {
+              internalType: "uint8",
+              name: "max_iterations",
+              type: "uint8",
+            },
+            {
+              internalType: "bool",
+              name: "is_finished",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "agentId",
+              type: "uint256",
+            },
+          ],
+          name: "getMessageHistoryContents",
+          outputs: [
+            {
+              internalType: "string[]",
+              name: "",
+              type: "string[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "agentId",
+              type: "uint256",
+            },
+          ],
+          name: "getMessageHistoryRoles",
+          outputs: [
+            {
+              internalType: "string[]",
+              name: "",
+              type: "string[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "runId",
+              type: "uint256",
+            },
+          ],
+          name: "isRunFinished",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "runId",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "response",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "errorMessage",
+              type: "string",
+            },
+          ],
+          name: "onOracleFunctionResponse",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "runId",
+              type: "uint256",
+            },
+            {
+              components: [
+                {
+                  internalType: "string",
+                  name: "id",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "content",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "functionName",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "functionArguments",
+                  type: "string",
+                },
+                {
+                  internalType: "uint64",
+                  name: "created",
+                  type: "uint64",
+                },
+                {
+                  internalType: "string",
+                  name: "model",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "systemFingerprint",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "object",
+                  type: "string",
+                },
+                {
+                  internalType: "uint32",
+                  name: "completionTokens",
+                  type: "uint32",
+                },
+                {
+                  internalType: "uint32",
+                  name: "promptTokens",
+                  type: "uint32",
+                },
+                {
+                  internalType: "uint32",
+                  name: "totalTokens",
+                  type: "uint32",
+                },
+              ],
+              internalType: "struct IOracle.OpenAiResponse",
+              name: "response",
+              type: "tuple",
+            },
+            {
+              internalType: "string",
+              name: "errorMessage",
+              type: "string",
+            },
+          ],
+          name: "onOracleOpenAiLlmResponse",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "oracleAddress",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "prompt",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "query",
+              type: "string",
+            },
+            {
+              internalType: "uint8",
+              name: "max_iterations",
+              type: "uint8",
+            },
+          ],
+          name: "runAgent",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "i",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newOracleAddress",
+              type: "address",
+            },
+          ],
+          name: "setOracleAddress",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+    TraderAgent: {
+      address: "0xe7d6B85743CB901F1542beB8c8a44c5811fa2f27",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "initialOracleAddress",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "systemPrompt",
+              type: "string",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "runId",
+              type: "uint256",
+            },
+          ],
+          name: "AgentRunCreated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOracleAddress",
+              type: "address",
+            },
+          ],
+          name: "OracleAddressUpdated",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "projectName",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "projectDescription",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "totalSupply",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "teamAllocation",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "advisorAllocation",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "publicSaleAllocation",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "privateSaleAllocation",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "communityAllocation",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "futureDevAllocation",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "tokenPrice",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "hardCap",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "softCap",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "acceptedCrypto",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "consensus",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "circulatingSupply",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "communitySize",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "poolPercentage",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "liquidityPool",
+              type: "string",
+            },
+          ],
+          name: "ICOTradeBehaviour",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "i",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "agentRuns",
+          outputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "responsesCount",
+              type: "uint256",
+            },
+            {
+              internalType: "uint8",
+              name: "max_iterations",
+              type: "uint8",
+            },
+            {
+              internalType: "bool",
+              name: "is_finished",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "agentId",
+              type: "uint256",
+            },
+          ],
+          name: "getMessageHistoryContents",
+          outputs: [
+            {
+              internalType: "string[]",
+              name: "",
+              type: "string[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "agentId",
+              type: "uint256",
+            },
+          ],
+          name: "getMessageHistoryRoles",
+          outputs: [
+            {
+              internalType: "string[]",
+              name: "",
+              type: "string[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "runId",
+              type: "uint256",
+            },
+          ],
+          name: "isRunFinished",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "runId",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "response",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "errorMessage",
+              type: "string",
+            },
+          ],
+          name: "onOracleFunctionResponse",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "runId",
+              type: "uint256",
+            },
+            {
+              components: [
+                {
+                  internalType: "string",
+                  name: "id",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "content",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "functionName",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "functionArguments",
+                  type: "string",
+                },
+                {
+                  internalType: "uint64",
+                  name: "created",
+                  type: "uint64",
+                },
+                {
+                  internalType: "string",
+                  name: "model",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "systemFingerprint",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "object",
+                  type: "string",
+                },
+                {
+                  internalType: "uint32",
+                  name: "completionTokens",
+                  type: "uint32",
+                },
+                {
+                  internalType: "uint32",
+                  name: "promptTokens",
+                  type: "uint32",
+                },
+                {
+                  internalType: "uint32",
+                  name: "totalTokens",
+                  type: "uint32",
+                },
+              ],
+              internalType: "struct IOracle.OpenAiResponse",
+              name: "response",
+              type: "tuple",
+            },
+            {
+              internalType: "string",
+              name: "errorMessage",
+              type: "string",
+            },
+          ],
+          name: "onOracleOpenAiLlmResponse",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "oracleAddress",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "prompt",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "query",
+              type: "string",
+            },
+            {
+              internalType: "uint8",
+              name: "max_iterations",
+              type: "uint8",
+            },
+          ],
+          name: "runAgent",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "i",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newOracleAddress",
+              type: "address",
+            },
+          ],
+          name: "setOracleAddress",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+    YourContract: {
+      address: "0x0797F2Ba298536477808618F8cDf337b0073BfC6",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_owner",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "greetingSetter",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "newGreeting",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "bool",
+              name: "premium",
+              type: "bool",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          name: "GreetingChange",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "greeting",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "premium",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "_newGreeting",
+              type: "string",
+            },
+          ],
+          name: "setGreeting",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "totalCounter",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "userGreetingCounter",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "withdraw",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          stateMutability: "payable",
+          type: "receive",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+  },
+} as const;
 
 export default deployedContracts satisfies GenericContractsDeclaration;
