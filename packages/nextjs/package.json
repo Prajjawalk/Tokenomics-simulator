@@ -11,7 +11,8 @@
     "serve": "next start",
     "start": "next dev",
     "vercel": "vercel",
-    "vercel:yolo": "vercel --build-env NEXT_PUBLIC_IGNORE_BUILD_ERROR=true"
+    "vercel:yolo": "vercel --build-env NEXT_PUBLIC_IGNORE_BUILD_ERROR=true",
+    "fleek": "fleek sites deploy"
   },
   "dependencies": {
     "@heroicons/react": "~2.0.11",
