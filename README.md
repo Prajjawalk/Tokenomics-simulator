@@ -1,8 +1,15 @@
-# Tokenomics Simulator
+# Murder-mystery NPC Simulator
 
-🧪 We have created an onchain AI based tokenomics simulator powered by Galadriel.
+🧪 We have created an onchain AI based Game NPC simulator powered by Galadriel.
 
-Designing a good tokenomics is the most crucial step for any blockchain protocol because the tokenomics either make or break the protocol. Currently we don't have sufficient toolsets and frameworks to create and test tokenomics. In order to solve this problem we have created the tokenomics simulator tool where anybody can enter the token details (circulating supply, allocations etc.) and run the simulations on how the token will behave, community will react and also price actions.
+A dead body has been found at 4/11, West Downtown Street and investigation has been going under Sheriff Johnson. So far three suspects have been identified who were present at the time and location of the murder. Mr. Mayer is the brother of the murdered person, Mr. Robert is the stubborn old man living in the neighboring street and Mr. Max is the car salesman who was also present at the murder scene. Sheriff is actively investigating the case and questioning those involved. Run the simulations to find out who is the murderer!
+
+There are 5 agents -
+
+1. Plot setter - this agent sets the story plot, it uses Galadriel tools to create crime scenes and their visualizations.
+2. Sheriff - this is an NPC agent which is responsible for crime investigation
+3. Mr. Mayer - this is an NPC agent who is murderer
+4. Mr. Max and Mr. Robert are the witness NPC agents. Watch and enjoy their conversations with sheriff.
 
 ⚙️ Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, and Typescript.
 
@@ -16,12 +23,12 @@ Before you begin, you need to install the following tools:
 
 ## Quickstart
 
-To get started with Tokenomics Simulator, follow the steps below:
+To get started with Game NPC Simulator, follow the steps below:
 
 1. Install dependencies if it was skipped in CLI:
 
 ```
-cd tokenomics-simulator
+cd game-NPC-simulator
 yarn install
 ```
 
@@ -40,14 +47,3 @@ yarn start
 ```
 
 Visit your app on: `http://localhost:3000`.
-
-The core of tokenomics simulator is powered by Galadriel network which is an onchain AI platform where we can call LLM's and get predictions.
-
-We have created 4 AI Agents on Galadriel -
-
-1. Trader agent who trades on the launch of an ICO
-2. Community agent who reacts on token price actions, new developments etc.
-3. Investor agent which determines how will the investor behave
-4. Exchange agent which determines whether the token will be listed or not.
-
-These 4 agents communicate with one another to get the relevant information and simulate actions accordingly.
