@@ -24,7 +24,7 @@ const deployInvestigatorAgent: DeployFunction = async function (hre: HardhatRunt
   await deploy("InvestigatorAgent", {
     from: deployer,
     // Contract constructor arguments
-    args: ["0x4168668812C94a3167FCd41D12014c5498D74d7e", "You are a helpful assistant \n"],
+    args: ["0x68EC9556830AD097D661Df2557FBCeC166a0A075", ""],
     log: true,
     // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
     // automatically mining the contract deployment transaction. There is no effect on live networks.

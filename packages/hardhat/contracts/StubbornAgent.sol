@@ -5,174 +5,178 @@ pragma solidity ^0.8.9;
 // import "hardhat/console.sol";
 import "./interfaces/IOracle.sol";
 
+// @title StubbornAgent
+// @notice This contract handles chat interactions and integrates with teeML oracle for LLM and knowledge base queries.
 contract StubbornAgent {
-	string public prompt;
 
-	struct Message {
-		string role;
-		string content;
-	}
+    struct Message {
+        string role;
+        string content;
+    }
 
-	struct AgentRun {
-		address owner;
-		Message[] messages;
-		uint responsesCount;
-		uint8 max_iterations;
-		bool is_finished;
-	}
+    struct ChatRun {
+        address owner;
+        Message[] messages;
+        uint messagesCount;
+    }
 
-	mapping(uint => AgentRun) public agentRuns;
-	uint private agentRunCount;
+    // @notice Mapping from chat ID to ChatRun
+    mapping(uint => ChatRun) public chatRuns;
+    uint private chatRunsCount;
 
-	event AgentRunCreated(address indexed owner, uint indexed runId);
+    // @notice Event emitted when a new chat is created
+    event ChatCreated(address indexed owner, uint indexed chatId);
 
-	address private owner;
-	address public oracleAddress;
+    // @notice Address of the contract owner
+    address private owner;
+    
+    // @notice Address of the oracle contract
+    address public oracleAddress;
+    
+    // @notice CID of the knowledge base
+    string public knowledgeBase;
 
-	event OracleAddressUpdated(address indexed newOracleAddress);
+    // @notice Event emitted when the oracle address is updated
+    event OracleAddressUpdated(address indexed newOracleAddress);
 
-	IOracle.OpenAiRequest private config;
+    // @param initialOracleAddress Initial address of the oracle contract
+    // @param knowledgeBaseCID CID of the initial knowledge base
+    constructor(address initialOracleAddress, string memory knowledgeBaseCID) {
+        owner = msg.sender;
+        oracleAddress = initialOracleAddress;
+        knowledgeBase = knowledgeBaseCID;
+    }
 
-	constructor(address initialOracleAddress, string memory systemPrompt) {
-		owner = msg.sender;
-		oracleAddress = initialOracleAddress;
-		prompt = systemPrompt;
+    // @notice Ensures the caller is the contract owner
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Caller is not owner");
+        _;
+    }
 
-		config = IOracle.OpenAiRequest({
-			model: "gpt-4-turbo-preview",
-			frequencyPenalty: 21, // > 20 for null
-			logitBias: "", // empty str for null
-			maxTokens: 1000, // 0 for null
-			presencePenalty: 21, // > 20 for null
-			responseFormat: '{"type":"text"}',
-			seed: 0, // null
-			stop: "", // null
-			temperature: 10, // Example temperature (scaled up, 10 means 1.0), > 20 means null
-			topP: 101, // Percentage 0-100, > 100 means null
-			tools: '[{"type":"function","function":{"name":"image_generation","description":"Generates an image using Dalle-2","parameters":{"type":"object","properties":{"prompt":{"type":"string","description":"Dalle-2 prompt to generate an image"}},"required":["prompt"]}}}]',
-			toolChoice: "auto", // "none" or "auto"
-			user: "" // null
-		});
-	}
+    // @notice Ensures the caller is the oracle contract
+    modifier onlyOracle() {
+        require(msg.sender == oracleAddress, "Caller is not oracle");
+        _;
+    }
 
-	modifier onlyOwner() {
-		require(msg.sender == owner, "Caller is not owner");
-		_;
-	}
+    // @notice Sets a new oracle address
+    // @param newOracleAddress The new oracle address
+    function setOracleAddress(address newOracleAddress) public onlyOwner {
+        oracleAddress = newOracleAddress;
+        emit OracleAddressUpdated(newOracleAddress);
+    }
 
-	modifier onlyOracle() {
-		require(msg.sender == oracleAddress, "Caller is not oracle");
-		_;
-	}
-
-	function setOracleAddress(address newOracleAddress) public onlyOwner {
-		require(msg.sender == owner, "Caller is not the owner");
-		oracleAddress = newOracleAddress;
-		emit OracleAddressUpdated(newOracleAddress);
-	}
-
-	function RunStubbornNPC(
+    function RunStubbornNPC(
 		
-	) public returns (uint i) {
-		string memory query = "You are a NPC character in a game. You were a witness to a murder but are reluctant to discuss it or say what you saw. Task: You will act like the NPC character AT ALL TIMES. You will speak as an uneducated street person in olden times. You are not willing to give up the information you have about the murder and will only do so under extreme pressure or for large amount of money. You will not volunteer information easily. You don't want to talk.";
+    ) public returns (uint i) {
+      string memory query = "You are a NPC character in a game. You were a witness to a murder but are reluctant to discuss it or say what you saw. \n Task: You will act like the NPC character AT ALL TIMES. \n You will speak as an uneducated street person in olden times. \n You are not willing to give up the information you have about the murder and will only do so under extreme pressure or for large amount of money. \n You will not volunteer information easily. You don't want to talk.";
 
-		return runAgent(query, 1);
-	}
+      return startChat(query);
+    }
 
-	function runAgent(
-		string memory query,
-		uint8 max_iterations
-	) public returns (uint i) {
-		AgentRun storage run = agentRuns[agentRunCount];
 
-		run.owner = msg.sender;
-		run.is_finished = false;
-		run.responsesCount = 0;
-		run.max_iterations = max_iterations;
 
-		Message memory systemMessage;
-		systemMessage.content = prompt;
-		systemMessage.role = "system";
-		run.messages.push(systemMessage);
 
-		Message memory newMessage;
-		newMessage.content = query;
-		newMessage.role = "user";
-		run.messages.push(newMessage);
 
-		uint currentId = agentRunCount;
-		agentRunCount = agentRunCount + 1;
+    // @notice Starts a new chat
+    // @param message The initial message to start the chat with
+    // @return The ID of the newly created chat
+    function startChat(string memory message) public returns (uint) {
+        ChatRun storage run = chatRuns[chatRunsCount];
 
-		IOracle(oracleAddress).createOpenAiLlmCall(currentId, config);
-		emit AgentRunCreated(run.owner, currentId);
+        run.owner = msg.sender;
+        Message memory newMessage;
+        newMessage.content = message;
+        newMessage.role = "user";
+        run.messages.push(newMessage);
+        run.messagesCount = 1;
 
-		return currentId;
-	}
+        uint currentId = chatRunsCount;
+        chatRunsCount++;
 
-	function onOracleOpenAiLlmResponse(
-		uint runId,
-		IOracle.OpenAiResponse memory response,
-		string memory errorMessage
-	) public onlyOracle {
-		AgentRun storage run = agentRuns[runId];
+        // If there is a knowledge base, create a knowledge base query
+        if (bytes(knowledgeBase).length > 0) {
+            IOracle(oracleAddress).createKnowledgeBaseQuery(
+                currentId,
+                knowledgeBase,
+                message,
+                3
+            );
+        } else {
+            // Otherwise, create an LLM call
+            IOracle(oracleAddress).createLlmCall(currentId);
+        }
+        emit ChatCreated(msg.sender, currentId);
 
-		if (!compareStrings(errorMessage, "")) {
-			Message memory newMessage;
-			newMessage.role = "assistant";
-			newMessage.content = errorMessage;
-			run.messages.push(newMessage);
-			run.responsesCount++;
-			run.is_finished = true;
-			return;
-		}
-		if (run.responsesCount >= run.max_iterations) {
-			run.is_finished = true;
-			return;
-		}
-		if (!compareStrings(response.content, "")) {
-			Message memory assistantMessage;
-			assistantMessage.content = response.content;
-			assistantMessage.role = "assistant";
-			run.messages.push(assistantMessage);
-			run.responsesCount++;
-		}
-		if (!compareStrings(response.functionName, "")) {
-			IOracle(oracleAddress).createFunctionCall(
-				runId,
-				response.functionName,
-				response.functionArguments
-			);
-			return;
-		}
-		run.is_finished = true;
-	}
+        return currentId;
+    }
 
-	function onOracleFunctionResponse(
-		uint runId,
-		string memory response,
-		string memory errorMessage
-	) public onlyOracle {
-		AgentRun storage run = agentRuns[runId];
-		require(!run.is_finished, "Run is finished");
-		string memory result = response;
-		if (!compareStrings(errorMessage, "")) {
-			result = errorMessage;
-		}
-		Message memory newMessage;
-		newMessage.role = "user";
-		newMessage.content = result;
-		run.messages.push(newMessage);
-		run.responsesCount++;
-		IOracle(oracleAddress).createOpenAiLlmCall(runId, config);
-	}
+    // @notice Handles the response from the oracle for an LLM call
+    // @param runId The ID of the chat run
+    // @param response The response from the oracle
+    // @dev Called by teeML oracle
+    function onOracleLlmResponse(
+        uint runId,
+        string memory response,
+        string memory /*errorMessage*/
+    ) public onlyOracle {
+        ChatRun storage run = chatRuns[runId];
+        require(
+            keccak256(abi.encodePacked(run.messages[run.messagesCount - 1].role)) == keccak256(abi.encodePacked("user")),
+            "No message to respond to"
+        );
 
-  // @notice Adds a new message to an existing chat run
+        Message memory newMessage;
+        newMessage.content = response;
+        newMessage.role = "assistant";
+        run.messages.push(newMessage);
+        run.messagesCount++;
+    }
+
+    // @notice Handles the response from the oracle for a knowledge base query
+    // @param runId The ID of the chat run
+    // @param documents The array of retrieved documents
+    // @dev Called by teeML oracle
+    function onOracleKnowledgeBaseQueryResponse(
+        uint runId,
+        string[] memory documents,
+        string memory /*errorMessage*/
+    ) public onlyOracle {
+        ChatRun storage run = chatRuns[runId];
+        require(
+            keccak256(abi.encodePacked(run.messages[run.messagesCount - 1].role)) == keccak256(abi.encodePacked("user")),
+            "No message to add context to"
+        );
+        // Retrieve the last user message
+        Message storage lastMessage = run.messages[run.messagesCount - 1];
+
+        // Start with the original message content
+        string memory newContent = lastMessage.content;
+
+        // Append "Relevant context:\n" only if there are documents
+        if (documents.length > 0) {
+            newContent = string(abi.encodePacked(newContent, "\n\nRelevant context:\n"));
+        }
+
+        // Iterate through the documents and append each to the newContent
+        for (uint i = 0; i < documents.length; i++) {
+            newContent = string(abi.encodePacked(newContent, documents[i], "\n"));
+        }
+
+        // Finally, set the lastMessage content to the newly constructed string
+        lastMessage.content = newContent;
+
+        // Call LLM
+        IOracle(oracleAddress).createLlmCall(runId);
+    }
+
+    // @notice Adds a new message to an existing chat run
     // @param message The new message to add
     // @param runId The ID of the chat run
     function addMessage(string memory message, uint runId) public {
-        AgentRun storage run = agentRuns[runId];
+        ChatRun storage run = chatRuns[runId];
         require(
-            keccak256(abi.encodePacked(run.messages[run.responsesCount - 1].role)) == keccak256(abi.encodePacked("assistant")),
+            keccak256(abi.encodePacked(run.messages[run.messagesCount - 1].role)) == keccak256(abi.encodePacked("assistant")),
             "No response to previous message"
         );
         require(
@@ -183,45 +187,42 @@ contract StubbornAgent {
         newMessage.content = message;
         newMessage.role = "user";
         run.messages.push(newMessage);
-        run.responsesCount++;
-        
-        IOracle(oracleAddress).createOpenAiLlmCall(runId, config);
+        run.messagesCount++;
+        // If there is a knowledge base, create a knowledge base query
+        if (bytes(knowledgeBase).length > 0) {
+            IOracle(oracleAddress).createKnowledgeBaseQuery(
+                runId,
+                knowledgeBase,
+                message,
+                3
+            );
+        } else {
+            // Otherwise, create an LLM call
+            IOracle(oracleAddress).createLlmCall(runId);
+        }
     }
 
+    // @notice Retrieves the message history contents of a chat run
+    // @param chatId The ID of the chat run
+    // @return An array of message contents
+    // @dev Called by teeML oracle
+    function getMessageHistoryContents(uint chatId) public view returns (string[] memory) {
+        string[] memory messages = new string[](chatRuns[chatId].messages.length);
+        for (uint i = 0; i < chatRuns[chatId].messages.length; i++) {
+            messages[i] = chatRuns[chatId].messages[i].content;
+        }
+        return messages;
+    }
 
-	function getMessageHistoryContents(
-		uint agentId
-	) public view returns (string[] memory) {
-		string[] memory messages = new string[](
-			agentRuns[agentId].messages.length
-		);
-		for (uint i = 0; i < agentRuns[agentId].messages.length; i++) {
-			messages[i] = agentRuns[agentId].messages[i].content;
-		}
-		return messages;
-	}
-
-	function getMessageHistoryRoles(
-		uint agentId
-	) public view returns (string[] memory) {
-		string[] memory roles = new string[](
-			agentRuns[agentId].messages.length
-		);
-		for (uint i = 0; i < agentRuns[agentId].messages.length; i++) {
-			roles[i] = agentRuns[agentId].messages[i].role;
-		}
-		return roles;
-	}
-
-	function isRunFinished(uint runId) public view returns (bool) {
-		return agentRuns[runId].is_finished;
-	}
-
-	function compareStrings(
-		string memory a,
-		string memory b
-	) private pure returns (bool) {
-		return (keccak256(abi.encodePacked((a))) ==
-			keccak256(abi.encodePacked((b))));
-	}
+    // @notice Retrieves the roles of the messages in a chat run
+    // @param chatId The ID of the chat run
+    // @return An array of message roles
+    // @dev Called by teeML oracle
+    function getMessageHistoryRoles(uint chatId) public view returns (string[] memory) {
+        string[] memory roles = new string[](chatRuns[chatId].messages.length);
+        for (uint i = 0; i < chatRuns[chatId].messages.length; i++) {
+            roles[i] = chatRuns[chatId].messages[i].role;
+        }
+        return roles;
+    }
 }

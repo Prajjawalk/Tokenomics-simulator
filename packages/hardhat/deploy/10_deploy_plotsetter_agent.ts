@@ -7,7 +7,7 @@ import { DeployFunction } from "hardhat-deploy/types";
  *
  * @param hre HardhatRuntimeEnvironment object.
  */
-const deploySalesmanAgent: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
+const deployPlotSetterAgent: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   /*
     On localhost, the deployer account is the one that comes with Hardhat, which is already funded.
 
@@ -21,10 +21,10 @@ const deploySalesmanAgent: DeployFunction = async function (hre: HardhatRuntimeE
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
 
-  await deploy("SalesmanAgent", {
+  await deploy("PlotSetterAgent", {
     from: deployer,
     // Contract constructor arguments
-    args: ["0x68EC9556830AD097D661Df2557FBCeC166a0A075", ""],
+    args: ["0x68EC9556830AD097D661Df2557FBCeC166a0A075", "You are a helpful assistant \n"],
     log: true,
     // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
     // automatically mining the contract deployment transaction. There is no effect on live networks.
@@ -32,8 +32,8 @@ const deploySalesmanAgent: DeployFunction = async function (hre: HardhatRuntimeE
   });
 };
 
-export default deploySalesmanAgent;
+export default deployPlotSetterAgent;
 
 // Tags are useful if you have multiple deploy files and only want to run one of them.
 // e.g. yarn deploy --tags TraderAgent
-deploySalesmanAgent.tags = ["SalesmanAgent"];
+deployPlotSetterAgent.tags = ["PlotSetterAgent"];
